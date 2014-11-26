@@ -9,7 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codebaum.livingsocialchallenge.model.FeedItem;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by brandon on 11/26/14.
@@ -18,14 +24,12 @@ public class JSONFeedAdapter extends ArrayAdapter<FeedItem>
 {
     Context context;
     int resource;
-    List<FeedItem> objects;
 
     public JSONFeedAdapter(Context context, int resource, List<FeedItem> objects)
     {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
-        this.objects = objects;
     }
 
     @Override
@@ -39,8 +43,7 @@ public class JSONFeedAdapter extends ArrayAdapter<FeedItem>
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(resource, parent, false);
 
-            holder = new ViewHolder();
-            holder.txtTitle = (TextView) row.findViewById(android.R.id.text1);
+            holder = new ViewHolder(row);
 
             row.setTag(holder);
         }
@@ -49,14 +52,37 @@ public class JSONFeedAdapter extends ArrayAdapter<FeedItem>
             holder = (ViewHolder) row.getTag();
         }
 
-        FeedItem item = objects.get(position);
-        holder.txtTitle.setText(item.getSrc());
+        FeedItem item = super.getItem(position);
+
+        Picasso.with(context).load(item.getSrc()).into(holder.image);
+        holder.attrib.setText(item.getAttrib());
+        holder.desc.setText(item.getDesc());
+        Picasso.with(context).load(item.getUser().getAvatar().getSrc()).into(holder.avatar);
+        holder.username.setText(item.getUser().getUsername());
 
         return row;
     }
 
     static class ViewHolder
     {
-        TextView txtTitle;
+        @InjectView(R.id.image)
+        ImageView image;
+
+        @InjectView(R.id.attrib)
+        TextView attrib;
+
+        @InjectView(R.id.desc)
+        TextView desc;
+
+        @InjectView(R.id.avatar)
+        ImageView avatar;
+
+        @InjectView(R.id.username)
+        TextView username;
+
+        public ViewHolder(View view)
+        {
+            ButterKnife.inject(this, view);
+        }
     }
 }

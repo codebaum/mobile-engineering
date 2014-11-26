@@ -1,4 +1,4 @@
-package com.codebaum.livingsocialchallenge;
+package com.codebaum.livingsocialchallenge.model;
 
 /**
  * Created by brandon on 11/26/14.

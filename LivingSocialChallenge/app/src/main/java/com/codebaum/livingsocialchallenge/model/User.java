@@ -1,4 +1,4 @@
-package com.codebaum.livingsocialchallenge;
+package com.codebaum.livingsocialchallenge.model;
 
 /**
  * Created by brandon on 11/26/14.
@@ -6,7 +6,7 @@ package com.codebaum.livingsocialchallenge;
 public class User
 {
     private String name;
-    private Avatar avater;
+    private Avatar avatar;
     private String username;
 
     public String getName()
@@ -14,9 +14,9 @@ public class User
         return name;
     }
 
-    public Avatar getAvater()
+    public Avatar getAvatar()
     {
-        return avater;
+        return avatar;
     }
 
     public String getUsername()

@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.codebaum.livingsocialchallenge.model.FeedItem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -67,10 +69,16 @@ public class JSONFeedFragment extends ListFragment
         }
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id)
+    {
+        Object obj = getListView().getItemAtPosition(position);
+    }
+
     public void updateWith(JSONArray jsonArray)
     {
         List<FeedItem> feedItems = convertFrom(jsonArray);
-        JSONFeedAdapter adapter = new JSONFeedAdapter(getActivity(), android.R.layout.simple_list_item_1, feedItems);
+        JSONFeedAdapter adapter = new JSONFeedAdapter(getActivity(), R.layout.row_feed_item, feedItems);
         setListAdapter(adapter);
     }
 

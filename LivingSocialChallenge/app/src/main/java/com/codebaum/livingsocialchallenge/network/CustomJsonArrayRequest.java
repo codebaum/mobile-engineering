@@ -1,4 +1,4 @@
-package com.codebaum.livingsocialchallenge;
+package com.codebaum.livingsocialchallenge.network;
 
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
