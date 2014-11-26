@@ -1,14 +1,18 @@
 package com.codebaum.livingsocialchallenge;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.codebaum.livingsocialchallenge.model.FeedItem;
 import com.codebaum.livingsocialchallenge.network.CustomJsonArrayRequest;
 
 import org.json.JSONArray;
@@ -81,13 +85,30 @@ public class JSONFeedActivity extends Activity implements JSONFeedFragment.Callb
         }));
     }
 
+    @Override
+    public void openUrl(FeedItem item)
+    {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(item.getHref()));
+        startActivity(i);
+    }
+
+    /**
+     * Handle the successful feed request response the server sent back.
+     * @param response
+     */
     private void handle(JSONArray response)
     {
         JSONFeedFragment fragment = (JSONFeedFragment) getFragmentManager().findFragmentById(R.id.container);
         fragment.updateWith(response);
     }
 
+    /**
+     * Handle the case where our feed request call returns an error.
+     * @param error
+     */
     private void handle(VolleyError error)
     {
+        Toast.makeText(this, getString(R.string.volley_error), Toast.LENGTH_LONG).show();
     }
 }

@@ -14,6 +14,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
+ * Use this class to enable app-level caching of network responses for JSONArray requests.
+ *
+ * The overriding of the caching policy is useful when the server doesn't respond with valid cache limits, or if more control over caching is needed.
+ *
  * Created by brandon on 11/26/14.
  */
 public class CustomJsonArrayRequest extends JsonArrayRequest
@@ -39,6 +43,11 @@ public class CustomJsonArrayRequest extends JsonArrayRequest
         }
     }
 
+    /**
+     * Ignores the cache headers the server responds with and instead uses custom values.
+     * @param response
+     * @return
+     */
     public static Cache.Entry parseIgnoreCacheHeaders(NetworkResponse response) {
         long now = System.currentTimeMillis();
 
