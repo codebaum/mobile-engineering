@@ -3,6 +3,8 @@ package com.codebaum.livingsocialchallenge;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import com.codebaum.livingsocialchallenge.model.FeedItem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 

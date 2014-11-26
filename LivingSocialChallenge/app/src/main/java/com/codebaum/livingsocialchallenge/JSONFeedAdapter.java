@@ -54,7 +54,7 @@ public class JSONFeedAdapter extends ArrayAdapter<FeedItem>
 
         FeedItem item = super.getItem(position);
 
-        Picasso.with(context).load(item.getSrc()).into(holder.image);
+        Picasso.with(context).load(item.getSrc()).fit().centerCrop().into(holder.image);
         holder.attrib.setText(item.getAttrib());
         holder.desc.setText(item.getDesc());
         Picasso.with(context).load(item.getUser().getAvatar().getSrc()).into(holder.avatar);
