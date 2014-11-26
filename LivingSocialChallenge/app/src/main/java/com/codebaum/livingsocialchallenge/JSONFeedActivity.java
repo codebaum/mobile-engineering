@@ -1,18 +1,19 @@
 package com.codebaum.livingsocialchallenge;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 
 
-public class JSONFeedActivity extends Activity
+public class JSONFeedActivity extends Activity implements JSONFeedFragment.Callbacks
 {
 
     @Override
@@ -20,10 +21,11 @@ public class JSONFeedActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json_feed);
+
         if (savedInstanceState == null)
         {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new JSONFeedFragment())
                     .commit();
         }
     }
@@ -54,22 +56,35 @@ public class JSONFeedActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment
+    @Override
+    public void requestData()
     {
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-        public PlaceholderFragment()
-        {
-        }
+        String url = getString(R.string.json_feed_url);
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState)
+        queue.add(new CustomJsonArrayRequest(url, new Response.Listener<JSONArray>()
         {
-            View rootView = inflater.inflate(R.layout.fragment_json_feed, container, false);
-            return rootView;
-        }
+            @Override
+            public void onResponse(JSONArray response)
+            {
+                handle(response);
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                handle(error);
+            }
+        }));
+    }
+
+    private void handle(JSONArray response)
+    {
+    }
+
+    private void handle(VolleyError error)
+    {
     }
 }

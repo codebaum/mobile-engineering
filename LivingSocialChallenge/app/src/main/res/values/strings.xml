@@ -5,4 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="json_feed_url">http://sheltered-bastion-2512.herokuapp.com/feed.json</string>
+
 </resources>
