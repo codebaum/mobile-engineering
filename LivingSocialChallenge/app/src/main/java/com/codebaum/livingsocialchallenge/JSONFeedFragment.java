@@ -2,6 +2,8 @@ package com.codebaum.livingsocialchallenge;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +74,10 @@ public class JSONFeedFragment extends ListFragment
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
     {
-        Object obj = getListView().getItemAtPosition(position);
+        FeedItem item = (FeedItem) getListView().getItemAtPosition(position);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(item.getHref()));
+        startActivity(i);
     }
 
     public void updateWith(JSONArray jsonArray)
