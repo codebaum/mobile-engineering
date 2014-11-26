@@ -30,12 +30,34 @@ import java.util.List;
  */
 public class JSONFeedFragment extends ListFragment
 {
-    private Callbacks callbacks;
+    private Callbacks callbacks = sDummyCallbacks;
 
     public interface Callbacks
     {
+        /**
+         * The fragment view is ready, so make the necessary data calls.
+         */
         public void requestData();
+
+        /**
+         * Opens the specified url for the FeedItem.
+         */
+        public void openUrl(FeedItem item);
     }
+
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        @Override
+        public void requestData()
+        {
+
+        }
+
+        @Override
+        public void openUrl(FeedItem item)
+        {
+
+        }
+    };
 
     public JSONFeedFragment()
     {
@@ -69,21 +91,27 @@ public class JSONFeedFragment extends ListFragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        if (callbacks != null)
-        {
-            callbacks.requestData();
-        }
+        callbacks.requestData();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
     {
         FeedItem item = (FeedItem) getListView().getItemAtPosition(position);
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(item.getHref()));
-        startActivity(i);
+        callbacks.openUrl(item);
     }
 
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+        callbacks = sDummyCallbacks;
+    }
+
+    /**
+     * Take the JSONArray response and set up the list adapter.
+     * @param jsonArray
+     */
     public void updateWith(JSONArray jsonArray)
     {
         List<FeedItem> feedItems = convertFrom(jsonArray);
@@ -91,6 +119,11 @@ public class JSONFeedFragment extends ListFragment
         setListAdapter(adapter);
     }
 
+    /**
+     * Convert the JSONArray into a list of FeedItems.
+     * @param jsonArray
+     * @return
+     */
     private ArrayList<FeedItem> convertFrom(JSONArray jsonArray)
     {
         Type listType = new TypeToken<List<FeedItem>>()

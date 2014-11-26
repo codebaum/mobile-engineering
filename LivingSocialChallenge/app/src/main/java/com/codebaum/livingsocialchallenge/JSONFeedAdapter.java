@@ -18,6 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
+ * Adapter class for showing FeedItems.
+ *
  * Created by brandon on 11/26/14.
  */
 public class JSONFeedAdapter extends ArrayAdapter<FeedItem>
@@ -54,9 +56,12 @@ public class JSONFeedAdapter extends ArrayAdapter<FeedItem>
 
         FeedItem item = super.getItem(position);
 
+        // Show main image and deal details.
         Picasso.with(context).load(item.getSrc()).fit().centerCrop().into(holder.image);
         holder.attrib.setText(item.getAttrib());
         holder.desc.setText(item.getDesc());
+
+        // Show user details.
         Picasso.with(context).load(item.getUser().getAvatar().getSrc()).into(holder.avatar);
         holder.username.setText(item.getUser().getUsername());
 

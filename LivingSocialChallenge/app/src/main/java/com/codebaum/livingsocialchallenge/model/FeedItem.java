@@ -1,6 +1,8 @@
 package com.codebaum.livingsocialchallenge.model;
 
 /**
+ * Represents the details we get back from the JSON feed.
+ *
  * Created by brandon on 11/26/14.
  */
 public class FeedItem

@@ -1,6 +1,8 @@
 package com.codebaum.livingsocialchallenge.model;
 
 /**
+ * Represents the user details that are stored in the JSON.
+ *
  * Created by brandon on 11/26/14.
  */
 public class User

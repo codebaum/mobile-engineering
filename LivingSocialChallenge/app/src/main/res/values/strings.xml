@@ -10,5 +10,6 @@
     <string name="placeholder_attrib">$50 to Spend on Juicy Steaks, Seafood, and Drink</string>
     <string name="placeholder_desc">Bobby Van\'s Grill</string>
     <string name="placeholder_username">codebaum</string>
+    <string name="volley_error">We\'re sorry. Feed not found.</string>
 
 </resources>
