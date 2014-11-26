@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LivingSocialChallenge</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">LivingSocial Challenge</string>
     <string name="action_settings">Settings</string>
 
     <string name="json_feed_url">http://sheltered-bastion-2512.herokuapp.com/feed.json</string>
+
+    <!-- The following should actual go into a debug/strings.xml file for production projects -->
+    <string name="placeholder_attrib">$50 to Spend on Juicy Steaks, Seafood, and Drink</string>
+    <string name="placeholder_desc">Bobby Van\'s Grill</string>
+    <string name="placeholder_username">codebaum</string>
 
 </resources>
