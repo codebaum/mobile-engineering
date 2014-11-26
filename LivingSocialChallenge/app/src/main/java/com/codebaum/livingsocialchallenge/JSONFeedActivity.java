@@ -82,6 +82,8 @@ public class JSONFeedActivity extends Activity implements JSONFeedFragment.Callb
 
     private void handle(JSONArray response)
     {
+        JSONFeedFragment fragment = (JSONFeedFragment) getFragmentManager().findFragmentById(R.id.container);
+        fragment.updateWith(response);
     }
 
     private void handle(VolleyError error)

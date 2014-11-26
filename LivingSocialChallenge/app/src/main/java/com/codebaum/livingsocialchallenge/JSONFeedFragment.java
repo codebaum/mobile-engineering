@@ -7,6 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by brandon on 11/26/14.
  */
@@ -33,8 +43,7 @@ public class JSONFeedFragment extends ListFragment
         try
         {
             callbacks = (Callbacks) activity;
-        }
-        catch (ClassCastException e)
+        } catch (ClassCastException e)
         {
             throw new ClassCastException(activity.toString() + " must implement " + Callbacks.class.getSimpleName());
         }
@@ -56,5 +65,22 @@ public class JSONFeedFragment extends ListFragment
         {
             callbacks.requestData();
         }
+    }
+
+    public void updateWith(JSONArray jsonArray)
+    {
+        List<FeedItem> feedItems = convertFrom(jsonArray);
+        JSONFeedAdapter adapter = new JSONFeedAdapter(getActivity(), android.R.layout.simple_list_item_1, feedItems);
+        setListAdapter(adapter);
+    }
+
+    private ArrayList<FeedItem> convertFrom(JSONArray jsonArray)
+    {
+        Type listType = new TypeToken<List<FeedItem>>()
+        {
+        }.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(jsonArray.toString(), listType);
     }
 }
